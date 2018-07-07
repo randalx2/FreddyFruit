@@ -6,7 +6,7 @@ using FreddyFruit.Models;
 
 namespace FreddyFruit.Logic
 {
-    public class ShoppingCartAction : IDisposable
+    public class ShoppingCartActions : IDisposable
     {
         public string ShoppingCartId { get; set; }
 

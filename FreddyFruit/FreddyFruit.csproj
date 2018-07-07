@@ -191,6 +191,7 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="AddToCart.aspx" />
     <Content Include="Catalog\Images\boatbig.png" />
     <Content Include="Catalog\Images\boatpaper.png" />
     <Content Include="Catalog\Images\boatsail.png" />
@@ -392,6 +393,13 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AddToCart.aspx.cs">
+      <DependentUpon>AddToCart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddToCart.aspx.designer.cs">
+      <DependentUpon>AddToCart.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -420,7 +428,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Logic\ShoppingCartAction.cs" />
+    <Compile Include="Logic\ShoppingCartActions.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
