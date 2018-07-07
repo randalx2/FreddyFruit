@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using System.Linq;
 using FreddyFruit.Models;
+using FreddyFruit.Logic;
 
 namespace FreddyFruit
 {
@@ -72,6 +73,21 @@ namespace FreddyFruit
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Reload the page based on updated shopping cart
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            using (ShoppingCartActions usersShoppingCart = new ShoppingCartActions())
+            {
+                string cartStr = string.Format("Cart ({0})", usersShoppingCart.GetCount());
+
+                cartCount.InnerText = cartStr;
+            }
         }
 
         public IQueryable<Category> GetCategories()
