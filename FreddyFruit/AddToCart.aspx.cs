@@ -15,6 +15,7 @@ namespace FreddyFruit
         {
             string rawId = Request.QueryString["ProductID"];
             int productId;
+
             if (!String.IsNullOrEmpty(rawId) && int.TryParse(rawId, out productId))
             {
                 using (ShoppingCartActions usersShoppingCart = new ShoppingCartActions())
@@ -31,5 +32,5 @@ namespace FreddyFruit
             Response.Redirect("ShoppingCart.aspx");
         }
     }
-    }
+    
 }
