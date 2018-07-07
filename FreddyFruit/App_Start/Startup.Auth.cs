@@ -59,11 +59,11 @@ namespace FreddyFruit
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "687305448730-gctg87bvedavnljiqas7l831esrmiru0.apps.googleusercontent.com",
+                ClientSecret = "_cqT3lTyUBfp4KqVUQtw-y8l"
+            });
         }
     }
 }
