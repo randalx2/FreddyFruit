@@ -104,9 +104,8 @@ namespace FreddyFruit.Logic
         /// This method should take into account product specials as well
         /// </summary>
         /// <returns></returns>
-        public decimal GetTotal()
+        public decimal GetTotalWithDiscount()
         {
-            //ShoppingCartId = GetCartId();
             decimal? total = decimal.Zero;
 
             //Get the cart items list
@@ -183,6 +182,38 @@ namespace FreddyFruit.Logic
         }
 
         /// <summary>
+        /// Gets the default total of items.
+        /// Does not consider discounts
+        /// </summary>
+        /// <returns></returns>
+        public decimal GetTotal()
+        {
+            ShoppingCartId = GetCartId();
+
+            // Multiply product price by quantity of that product to get        
+            // the current price for each of those products in the cart.  
+            // Sum all product price totals to get the cart total.   
+
+            decimal? total = decimal.Zero;
+
+            total = (decimal?)(from cartItems in _db.ShoppingCartItems
+                where cartItems.CartId == ShoppingCartId
+                select (int?)cartItems.Quantity *
+                       cartItems.Product.UnitPrice).Sum();
+
+            return total ?? decimal.Zero;
+        }
+
+        /// <summary>
+        /// Returns the amount the user has saved based on the discount
+        /// </summary>
+        /// <returns></returns>
+        public decimal GetSavings()
+        {
+            return GetTotal() - GetTotalWithDiscount();
+        }
+
+        /// <summary>
         /// Gets the anonomous cart object associated with the user
         /// </summary>
         /// <param name="context"></param>
@@ -209,6 +240,7 @@ namespace FreddyFruit.Logic
                 {
                     int CartItemCount = CartItemUpdates.Count();
                     List<CartItem> myCart = GetCartItems();
+
                     foreach (var cartItem in myCart)
                     {
                         // Iterate through all rows within shopping cart list

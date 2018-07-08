@@ -28,8 +28,16 @@
     <div>
         <p></p>
         <strong>
+            <asp:Label ID="lblWarning" EnableViewState="false" runat="server"></asp:Label>
+            <br/>
             <asp:Label ID="LabelTotalText" runat="server" Text="Order Total: "></asp:Label>
             <asp:Label ID="lblTotal" runat="server" EnableViewState="false"></asp:Label>
+            <br/>
+            <asp:Label ID="LabelSavingsText" runat="server" Text="Savings: "></asp:Label>
+            <asp:Label ID="lblSavings" runat="server" EnableViewState="false"></asp:Label>
+            <br/>
+            <asp:Label ID="LabelNetTotalText" runat="server" Text="Net Total: "></asp:Label>
+            <asp:Label ID="lblTotalWithDiscount" runat="server" EnableViewState="false"></asp:Label>
         </strong> 
     </div>
     <br />

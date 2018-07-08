@@ -8,6 +8,7 @@ using FreddyFruit.Models;
 using FreddyFruit.Logic;
 using System.Collections.Specialized;
 using System.Collections;
+using System.Drawing;
 using System.Web.ModelBinding;
 
 namespace FreddyFruit
@@ -19,18 +20,26 @@ namespace FreddyFruit
             using (ShoppingCartActions usersShoppingCart = new ShoppingCartActions())
             {
                 decimal cartTotal = 0;
+                decimal cartSavings = 0;
+                decimal cartNetTotal = 0;
 
                 cartTotal = usersShoppingCart.GetTotal();
+                cartNetTotal = usersShoppingCart.GetTotalWithDiscount();
+                cartSavings = usersShoppingCart.GetSavings();
 
                 if (cartTotal > 0)
                 {
                     // Display Total.
                     lblTotal.Text = String.Format("{0:c}", cartTotal);
+                    lblSavings.Text = String.Format("{0:c}", cartSavings);
+                    lblTotalWithDiscount.Text = String.Format("{0:c}", cartNetTotal);
                 }
                 else
                 {
                     LabelTotalText.Text = "";
                     lblTotal.Text = "";
+                    lblSavings.Text = "";
+                    lblTotalWithDiscount.Text = "";
                     ShoppingCartTitle.InnerText = "Shopping Cart is Empty";
                     UpdateBtn.Visible = false;
                     CheckoutImageBtn.Visible = false;
@@ -70,11 +79,27 @@ namespace FreddyFruit
 
                     TextBox quantityTextBox = new TextBox();
                     quantityTextBox = (TextBox)CartList.Rows[i].FindControl("PurchaseQuantity");
+
                     cartUpdates[i].PurchaseQuantity = Convert.ToInt16(quantityTextBox.Text.ToString());
                 }
+
                 usersShoppingCart.UpdateShoppingCartDatabase(cartId, cartUpdates);
                 CartList.DataBind();
+
+                //Check for more than 10 bananas
+                foreach (var shoppingCartItem in GetShoppingCartItems())
+                {
+                    if (shoppingCartItem.Product.ProductName.Equals("Bananas", StringComparison.Ordinal) &&
+                        shoppingCartItem.Quantity > 10)
+                    {
+                        lblWarning.ForeColor = Color.Red;
+                        lblWarning.Text = "Warning! You can only order a maximum of 10 Bananas. Net Total Updated.";                       
+                    }
+                }
+
                 lblTotal.Text = String.Format("{0:c}", usersShoppingCart.GetTotal());
+                lblSavings.Text = String.Format("{0:c}", usersShoppingCart.GetSavings());
+                lblTotalWithDiscount.Text = String.Format("{0:c}", usersShoppingCart.GetTotalWithDiscount());
 
                 return usersShoppingCart.GetCartItems();
             }
