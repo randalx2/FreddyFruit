@@ -44,6 +44,11 @@ namespace FreddyFruit
             return actions.GetCartItems();
         }
 
+        /// <summary>
+        /// Updates the cart according to item quantities.
+        /// Updated to take into account product specials.
+        /// </summary>
+        /// <returns></returns>
         public List<CartItem> UpdateCartItems()
         {
             using (ShoppingCartActions usersShoppingCart = new ShoppingCartActions())

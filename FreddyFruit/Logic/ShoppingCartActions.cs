@@ -8,12 +8,19 @@ namespace FreddyFruit.Logic
 {
     public class ShoppingCartActions : IDisposable
     {
+        /// <summary>
+        /// Unique identifier for an anonomous shopping cart
+        /// </summary>
         public string ShoppingCartId { get; set; }
 
         private ProductContext _db = new ProductContext();
 
         public const string CartSessionKey = "CartId";
 
+        /// <summary>
+        /// Adds the selected item to the user's cart
+        /// </summary>
+        /// <param name="id"></param>
         public void AddToCart(int id)
         {
             // Retrieve the product from the database.           
@@ -47,6 +54,9 @@ namespace FreddyFruit.Logic
             _db.SaveChanges();
         }
 
+        /// <summary>
+        /// Disposes of the db context
+        /// </summary>
         public void Dispose()
         {
             if (_db != null)
@@ -56,6 +66,10 @@ namespace FreddyFruit.Logic
             }
         }
 
+        /// <summary>
+        /// Gets the id of the cart associated with the current user
+        /// </summary>
+        /// <returns></returns>
         public string GetCartId()
         {
             if (HttpContext.Current.Session[CartSessionKey] == null)
@@ -74,6 +88,10 @@ namespace FreddyFruit.Logic
             return HttpContext.Current.Session[CartSessionKey].ToString();
         }
 
+        /// <summary>
+        /// Returns a list of items in the cart
+        /// </summary>
+        /// <returns></returns>
         public List<CartItem> GetCartItems()
         {
             ShoppingCartId = GetCartId();
@@ -88,20 +106,80 @@ namespace FreddyFruit.Logic
         /// <returns></returns>
         public decimal GetTotal()
         {
-            ShoppingCartId = GetCartId();
-
-            // Multiply product price by quantity of that product to get        
-            // the current price for each of those products in the cart.  
-            // Sum all product price totals to get the cart total.   
-
+            //ShoppingCartId = GetCartId();
             decimal? total = decimal.Zero;
 
-            total = (decimal?)(from cartItems in _db.ShoppingCartItems
-                where cartItems.CartId == ShoppingCartId
-                select (int?)cartItems.Quantity *
-                       cartItems.Product.UnitPrice).Sum();
+            //Get the cart items list
+            var userCart = GetCartItems();
 
-            return total ?? decimal.Zero;
+            if (userCart != null)
+            {
+                foreach (var cartItem in userCart)
+                {
+                    if (cartItem.Product.ProductName.Equals("Apples", StringComparison.Ordinal))
+                    {
+                        if (cartItem.Quantity >= 3)
+                        {
+                            if (cartItem.Quantity % 3 == 0)
+                            {
+                                total = total + Convert.ToDecimal((cartItem.Quantity / 3) * 5.00);
+                            }
+                            else
+                            {
+                                total = total + Convert.ToDecimal(((cartItem.Quantity - (cartItem.Quantity % 3)) / 3) * 5.00
+                                                                  + (cartItem.Quantity % 3) * cartItem.Product.UnitPrice);
+                            }
+                        }
+                        else
+                        {
+                            total = total + Convert.ToDecimal(cartItem.Quantity * cartItem.Product.UnitPrice);
+                        }
+                    }
+
+                    if (cartItem.Product.ProductName.Equals("Bananas", StringComparison.Ordinal))
+                    {
+                        if (cartItem.Quantity > 10)
+                        {
+                            //Set the quantity to a max of 10
+                            //Output the user on front end
+
+                            cartItem.Quantity = 10;
+
+                            total = total + Convert.ToDecimal(cartItem.Quantity * cartItem.Product.UnitPrice);
+
+                        }
+                        else
+                        {
+                            total = total + Convert.ToDecimal(cartItem.Quantity * cartItem.Product.UnitPrice);
+                        }
+                    }
+
+                    if (cartItem.Product.ProductName.Equals("Coconuts", StringComparison.Ordinal))
+                    {
+                        if (cartItem.Quantity >= 2)
+                        {
+                            if (cartItem.Quantity % 2 == 0)
+                            {
+                                //Only charge for half the items
+                                total = total + Convert.ToDecimal((cartItem.Quantity / 2) * cartItem.Product.UnitPrice);
+                            }
+                            else
+                            {
+                                total = total + Convert.ToDecimal(
+                                            ((cartItem.Quantity - (cartItem.Quantity % 2)) / 2) * cartItem.Product.UnitPrice +
+                                            (cartItem.Quantity % 2) * cartItem.Product.UnitPrice);
+                            }
+                        }
+                        else
+                        {
+                            total = total + Convert.ToDecimal(cartItem.Quantity * cartItem.Product.UnitPrice);
+                        }
+                    }
+
+                }
+            }
+            
+            return total?? decimal.Zero;
         }
 
         public ShoppingCartActions GetCart(HttpContext context)
