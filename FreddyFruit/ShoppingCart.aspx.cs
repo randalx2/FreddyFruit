@@ -15,38 +15,35 @@ namespace FreddyFruit
 {
     public partial class ShoppingCart : System.Web.UI.Page
     {
+        /// <summary>
+        /// Reloads the page with cart data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            using (ShoppingCartActions usersShoppingCart = new ShoppingCartActions())
+            //Update cart items on reload
+            UpdateCartItems();
+
+            //Check for an empty cart
+            if (GetShoppingCartItems().Count == 0)
             {
-                decimal cartTotal = 0;
-                decimal cartSavings = 0;
-                decimal cartNetTotal = 0;
+                LabelTotalText.Text = "";
+                lblTotal.Text = "";
+                lblSavings.Text = "";           
+                lblTotalWithDiscount.Text = "";
 
-                cartTotal = usersShoppingCart.GetTotal();
-                cartNetTotal = usersShoppingCart.GetTotalWithDiscount();
-                cartSavings = usersShoppingCart.GetSavings();
+                ShoppingCartTitle.InnerText = "Shopping Cart is Empty";
 
-                if (cartTotal > 0)
-                {
-                    // Display Total.
-                    lblTotal.Text = String.Format("{0:c}", cartTotal);
-                    lblSavings.Text = String.Format("{0:c}", cartSavings);
-                    lblTotalWithDiscount.Text = String.Format("{0:c}", cartNetTotal);
-                }
-                else
-                {
-                    LabelTotalText.Text = "";
-                    lblTotal.Text = "";
-                    lblSavings.Text = "";
-                    lblTotalWithDiscount.Text = "";
-                    ShoppingCartTitle.InnerText = "Shopping Cart is Empty";
-                    UpdateBtn.Visible = false;
-                    CheckoutImageBtn.Visible = false;
-                }
+                UpdateBtn.Visible = false;
+                CheckoutImageBtn.Visible = false;
             }
         }
 
+        /// <summary>
+        /// Returns all the items in the cart
+        /// </summary>
+        /// <returns></returns>
         public List<CartItem> GetShoppingCartItems()
         {
             ShoppingCartActions actions = new ShoppingCartActions();
@@ -98,6 +95,10 @@ namespace FreddyFruit
                 }
 
                 lblTotal.Text = String.Format("{0:c}", usersShoppingCart.GetTotal());
+
+                //TODO: Timing issue may be present with these two lines
+                //TODO: The data seems to correct itself on the 2nd button click.
+
                 lblSavings.Text = String.Format("{0:c}", usersShoppingCart.GetSavings());
                 lblTotalWithDiscount.Text = String.Format("{0:c}", usersShoppingCart.GetTotalWithDiscount());
 

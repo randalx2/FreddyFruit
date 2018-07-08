@@ -197,9 +197,9 @@ namespace FreddyFruit.Logic
             decimal? total = decimal.Zero;
 
             total = (decimal?)(from cartItems in _db.ShoppingCartItems
-                where cartItems.CartId == ShoppingCartId
-                select (int?)cartItems.Quantity *
-                       cartItems.Product.UnitPrice).Sum();
+                               where cartItems.CartId == ShoppingCartId
+                               select (int?)cartItems.Quantity 
+                                      * cartItems.Product.UnitPrice).Sum();
 
             return total ?? decimal.Zero;
         }
@@ -239,6 +239,7 @@ namespace FreddyFruit.Logic
                 try
                 {
                     int CartItemCount = CartItemUpdates.Count();
+
                     List<CartItem> myCart = GetCartItems();
 
                     foreach (var cartItem in myCart)
@@ -278,7 +279,10 @@ namespace FreddyFruit.Logic
             {
                 try
                 {
-                    var myItem = (from c in _db.ShoppingCartItems where c.CartId == removeCartID && c.Product.ProductID == removeProductID select c).FirstOrDefault();
+                    var myItem = (from c in _db.ShoppingCartItems
+                        where c.CartId == removeCartID && c.Product.ProductID == removeProductID
+                        select c).FirstOrDefault();
+
                     if (myItem != null)
                     {
                         // Remove Item.
@@ -305,7 +309,10 @@ namespace FreddyFruit.Logic
             {
                 try
                 {
-                    var myItem = (from c in _db.ShoppingCartItems where c.CartId == updateCartID && c.Product.ProductID == updateProductID select c).FirstOrDefault();
+                    var myItem = (from c in _db.ShoppingCartItems
+                        where c.CartId == updateCartID && c.Product.ProductID == updateProductID
+                        select c).FirstOrDefault();
+
                     if (myItem != null)
                     {
                         myItem.Quantity = quantity;
@@ -325,12 +332,15 @@ namespace FreddyFruit.Logic
         public void EmptyCart()
         {
             ShoppingCartId = GetCartId();
+
             var cartItems = _db.ShoppingCartItems.Where(
-                c => c.CartId == ShoppingCartId);
+                c => c.CartId == ShoppingCartId).ToList();
+
             foreach (var cartItem in cartItems)
             {
                 _db.ShoppingCartItems.Remove(cartItem);
             }
+
             // Save changes.             
             _db.SaveChanges();
         }
