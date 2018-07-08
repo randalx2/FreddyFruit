@@ -21,23 +21,30 @@ namespace FreddyFruit.Checkout
                     Response.Redirect("CheckoutError.aspx?" + "Desc=Unvalidated%20Checkout.");
                 }
 
-                NVPAPICaller payPalCaller = new NVPAPICaller();
+                //NVPAPICaller payPalCaller = new NVPAPICaller();
 
+                /*
                 string retMsg = "";
                 string token = "";
                 string finalPaymentAmount = "";
                 string PayerID = "";
-                NVPCodec decoder = new NVPCodec();
+                */
 
+                //NVPCodec decoder = new NVPCodec();
+                /*
                 token = Session["token"].ToString();
                 PayerID = Session["payerId"].ToString();
                 finalPaymentAmount = Session["payment_amt"].ToString();
+                */
 
-                bool ret = payPalCaller.DoCheckoutPayment(finalPaymentAmount, token, PayerID, ref decoder, ref retMsg);
-                if (ret)
+                //bool ret = payPalCaller.DoCheckoutPayment(finalPaymentAmount, token, PayerID, ref decoder, ref retMsg);
+
+                //TODO: Replace the value of true with a validation control signal
+                if (true)
                 {
                     // Retrieve PayPal confirmation value.
-                    string PaymentConfirmation = decoder["PAYMENTINFO_0_TRANSACTIONID"].ToString();
+                    //string PaymentConfirmation = decoder["PAYMENTINFO_0_TRANSACTIONID"].ToString();
+                    string PaymentConfirmation = "Payment Confirmed. Thank You.";
 
                     TransactionId.Text = PaymentConfirmation;
 
@@ -50,7 +57,9 @@ namespace FreddyFruit.Checkout
                     {
                         currentOrderId = Convert.ToInt32(Session["currentOrderID"]);
                     }
+
                     Order myCurrentOrder;
+
                     if (currentOrderId >= 0)
                     {
                         // Get the order based on order id.
@@ -75,7 +84,7 @@ namespace FreddyFruit.Checkout
                 }
                 else
                 {
-                    Response.Redirect("CheckoutError.aspx?" + retMsg);
+                    Response.Redirect("CheckoutError.aspx?");
                 }
             }
         }
