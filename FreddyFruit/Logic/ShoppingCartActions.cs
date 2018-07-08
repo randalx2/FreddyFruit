@@ -182,6 +182,11 @@ namespace FreddyFruit.Logic
             return total?? decimal.Zero;
         }
 
+        /// <summary>
+        /// Gets the anonomous cart object associated with the user
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public ShoppingCartActions GetCart(HttpContext context)
         {
             using (var cart = new ShoppingCartActions())
@@ -191,6 +196,11 @@ namespace FreddyFruit.Logic
             }
         }
 
+        /// <summary>
+        /// Updates the cart on the db side
+        /// </summary>
+        /// <param name="cartId"></param>
+        /// <param name="CartItemUpdates"></param>
         public void UpdateShoppingCartDatabase(String cartId, ShoppingCartUpdates[] CartItemUpdates)
         {
             using (var db = new FreddyFruit.Models.ProductContext())
@@ -225,6 +235,11 @@ namespace FreddyFruit.Logic
             }
         }
 
+        /// <summary>
+        /// Removes an item from the shopping cart
+        /// </summary>
+        /// <param name="removeCartID"></param>
+        /// <param name="removeProductID"></param>
         public void RemoveItem(string removeCartID, int removeProductID)
         {
             using (var _db = new FreddyFruit.Models.ProductContext())
@@ -246,6 +261,12 @@ namespace FreddyFruit.Logic
             }
         }
 
+        /// <summary>
+        /// Updates a single cart item
+        /// </summary>
+        /// <param name="updateCartID"></param>
+        /// <param name="updateProductID"></param>
+        /// <param name="quantity"></param>
         public void UpdateItem(string updateCartID, int updateProductID, int quantity)
         {
             using (var _db = new FreddyFruit.Models.ProductContext())
@@ -266,6 +287,9 @@ namespace FreddyFruit.Logic
             }
         }
 
+        /// <summary>
+        /// Removes all items from the cart
+        /// </summary>
         public void EmptyCart()
         {
             ShoppingCartId = GetCartId();
@@ -279,6 +303,11 @@ namespace FreddyFruit.Logic
             _db.SaveChanges();
         }
 
+        /// <summary>
+        /// Gets the number of items currently in the cart.
+        /// Takes into account quantity of each product object
+        /// </summary>
+        /// <returns></returns>
         public int GetCount()
         {
             ShoppingCartId = GetCartId();
@@ -291,6 +320,9 @@ namespace FreddyFruit.Logic
             return count ?? 0;
         }
 
+        /// <summary>
+        /// Holds the update cart properties
+        /// </summary>
         public struct ShoppingCartUpdates
         {
             public int ProductId;
@@ -298,6 +330,11 @@ namespace FreddyFruit.Logic
             public bool RemoveItem;
         }
 
+        /// <summary>
+        /// Migrate the anonomous cart to newly logged in user
+        /// </summary>
+        /// <param name="cartId"></param>
+        /// <param name="userName"></param>
         public void MigrateCart(string cartId, string userName)
         {
             var shoppingCart = _db.ShoppingCartItems.Where(c => c.CartId == cartId);
