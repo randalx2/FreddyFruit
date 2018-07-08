@@ -129,7 +129,8 @@ namespace FreddyFruit
         {
             using (ShoppingCartActions usersShoppingCart = new ShoppingCartActions())
             {
-                Session["payment_amt"] = usersShoppingCart.GetTotal();
+                //Session["payment_amt"] = usersShoppingCart.GetTotal();
+                Session["payment_amt"] = usersShoppingCart.GetTotalWithDiscount();
             }
 
             //Response.Redirect("Checkout/CheckoutStart.aspx");
