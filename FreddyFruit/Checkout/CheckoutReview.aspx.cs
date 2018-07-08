@@ -14,50 +14,29 @@ namespace FreddyFruit.Checkout
         {
             if (!IsPostBack)
             {
-                NVPAPICaller payPalCaller = new NVPAPICaller();
-
                 string retMsg = "";
                 string token = "";
                 string PayerID = "";
 
-                //Paypal decoder
-                NVPCodec decoder = new NVPCodec();
-
-                token = Session["token"].ToString();
-
-                bool ret = payPalCaller.GetCheckoutDetails(token, ref PayerID, ref decoder, ref retMsg);
-                if (ret)
+                //TODO: Replace the default value of true with a validation control signal
+                if (true)
                 {
                     Session["payerId"] = PayerID;
 
-                    var myOrder = new Order();
-                    myOrder.OrderDate = Convert.ToDateTime(decoder["TIMESTAMP"].ToString());
-                    myOrder.Username = User.Identity.Name;
-                    myOrder.FirstName = decoder["FIRSTNAME"].ToString();
-                    myOrder.LastName = decoder["LASTNAME"].ToString();
-                    myOrder.Address = decoder["SHIPTOSTREET"].ToString();
-                    myOrder.City = decoder["SHIPTOCITY"].ToString();
-                    myOrder.State = decoder["SHIPTOSTATE"].ToString();
-                    myOrder.PostalCode = decoder["SHIPTOZIP"].ToString();
-                    myOrder.Country = decoder["SHIPTOCOUNTRYCODE"].ToString();
-                    myOrder.Email = decoder["EMAIL"].ToString();
-                    myOrder.Total = Convert.ToDecimal(decoder["AMT"].ToString());
-
-                    // Verify total payment amount as set on CheckoutStart.aspx.
-                    try
+                    var myOrder = new Order
                     {
-                        decimal paymentAmountOnCheckout = Convert.ToDecimal(Session["payment_amt"].ToString());
-                        decimal paymentAmoutFromPayPal = Convert.ToDecimal(decoder["AMT"].ToString());
-
-                        if (paymentAmountOnCheckout != paymentAmoutFromPayPal)
-                        {
-                            Response.Redirect("CheckoutError.aspx?" + "Desc=Amount%20total%20mismatch.");
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        Response.Redirect("CheckoutError.aspx?" + "Desc=Amount%20total%20mismatch.");
-                    }
+                        OrderDate = DateTime.Now,
+                        Username = User.Identity.Name,
+                        Total = Convert.ToDecimal(Session["payment_amt"]),
+                        FirstName = "TestBuyer",
+                        LastName = "Tester",
+                        Address = "Test Street",
+                        City = "Test City",
+                        State = "Test State",
+                        PostalCode = "4339",
+                        Country = "South Africa",
+                        Email = "tester@gmail.com"
+                    };
 
                     // Get DB context.
                     ProductContext _db = new ProductContext();

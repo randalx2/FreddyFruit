@@ -15,6 +15,8 @@
         <Fields>
         <asp:TemplateField>
             <ItemTemplate>
+
+                <!--
                 <h3>Shipping Address:</h3>
                 <br />
                 <asp:Label ID="FirstName" runat="server" Text='<%#: Eval("FirstName") %>'></asp:Label>  
@@ -26,6 +28,8 @@
                 <asp:Label ID="State" runat="server" Text='<%#: Eval("State") %>'></asp:Label>
                 <asp:Label ID="PostalCode" runat="server" Text='<%#: Eval("PostalCode") %>'></asp:Label>
                 <p></p>
+                -->
+                
                 <h3>Order Total:</h3>
                 <br />
                 <asp:Label ID="Total" runat="server" Text='<%#: Eval("Total", "{0:C}") %>'></asp:Label>

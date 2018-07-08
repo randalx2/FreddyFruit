@@ -101,7 +101,10 @@ namespace FreddyFruit
                 Session["payment_amt"] = usersShoppingCart.GetTotal();
             }
 
-            Response.Redirect("Checkout/CheckoutStart.aspx");
+            //Response.Redirect("Checkout/CheckoutStart.aspx");
+
+            //Skip Paypal verificatin
+            Response.Redirect("Checkout/CheckoutReview.aspx");
         }
     }
 }
