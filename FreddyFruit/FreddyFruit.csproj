@@ -211,6 +211,8 @@
     <Content Include="Catalog\Images\planepaper.png" />
     <Content Include="Catalog\Images\planeprop.png" />
     <Content Include="Catalog\Images\rocket.png" />
+    <Content Include="Catalog\Images\Thumbs\apples.jpg" />
+    <Content Include="Catalog\Images\Thumbs\Bananas.jpg" />
     <Content Include="Catalog\Images\Thumbs\boatbig.png" />
     <Content Include="Catalog\Images\Thumbs\boatpaper.png" />
     <Content Include="Catalog\Images\Thumbs\boatsail.png" />
@@ -222,6 +224,7 @@
     <Content Include="Catalog\Images\Thumbs\carfast.png" />
     <Content Include="Catalog\Images\Thumbs\carfaster.png" />
     <Content Include="Catalog\Images\Thumbs\carracer.png" />
+    <Content Include="Catalog\Images\Thumbs\Coconuts.jpg" />
     <Content Include="Catalog\Images\Thumbs\planeace.png" />
     <Content Include="Catalog\Images\Thumbs\planeglider.png" />
     <Content Include="Catalog\Images\Thumbs\planepaper.png" />
