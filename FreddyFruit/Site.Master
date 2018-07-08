@@ -47,7 +47,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">Wingtip Toys</a>
+                    <a class="navbar-brand" runat="server" href="~/">Freddy Fruits</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -104,7 +104,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Wingtip Toys</p>
+                <p>&copy; <%: DateTime.Now.Year %> - Freddy Fruits</p>
             </footer>
         </div>
 
