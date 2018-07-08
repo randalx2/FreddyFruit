@@ -21,6 +21,7 @@ namespace FreddyFruit.Checkout
                 string amt = Session["payment_amt"].ToString();
 
                 bool ret = payPalCaller.ShortcutExpressCheckout(amt, ref token, ref retMsg);
+           
                 if (ret)
                 {
                     Session["token"] = token;

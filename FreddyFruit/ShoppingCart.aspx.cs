@@ -50,7 +50,9 @@ namespace FreddyFruit
             {
                 String cartId = usersShoppingCart.GetCartId();
 
-                ShoppingCartActions.ShoppingCartUpdates[] cartUpdates = new ShoppingCartActions.ShoppingCartUpdates[CartList.Rows.Count];
+                ShoppingCartActions.ShoppingCartUpdates[] cartUpdates =
+                    new ShoppingCartActions.ShoppingCartUpdates[CartList.Rows.Count];
+
                 for (int i = 0; i < CartList.Rows.Count; i++)
                 {
                     IOrderedDictionary rowValues = new OrderedDictionary();
@@ -68,6 +70,7 @@ namespace FreddyFruit
                 usersShoppingCart.UpdateShoppingCartDatabase(cartId, cartUpdates);
                 CartList.DataBind();
                 lblTotal.Text = String.Format("{0:c}", usersShoppingCart.GetTotal());
+
                 return usersShoppingCart.GetCartItems();
             }
         }
@@ -97,6 +100,7 @@ namespace FreddyFruit
             {
                 Session["payment_amt"] = usersShoppingCart.GetTotal();
             }
+
             Response.Redirect("Checkout/CheckoutStart.aspx");
         }
     }

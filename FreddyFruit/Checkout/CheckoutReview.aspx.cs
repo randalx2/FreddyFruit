@@ -19,7 +19,10 @@ namespace FreddyFruit.Checkout
                 string retMsg = "";
                 string token = "";
                 string PayerID = "";
+
+                //Paypal decoder
                 NVPCodec decoder = new NVPCodec();
+
                 token = Session["token"].ToString();
 
                 bool ret = payPalCaller.GetCheckoutDetails(token, ref PayerID, ref decoder, ref retMsg);
@@ -45,6 +48,7 @@ namespace FreddyFruit.Checkout
                     {
                         decimal paymentAmountOnCheckout = Convert.ToDecimal(Session["payment_amt"].ToString());
                         decimal paymentAmoutFromPayPal = Convert.ToDecimal(decoder["AMT"].ToString());
+
                         if (paymentAmountOnCheckout != paymentAmoutFromPayPal)
                         {
                             Response.Redirect("CheckoutError.aspx?" + "Desc=Amount%20total%20mismatch.");
@@ -100,7 +104,7 @@ namespace FreddyFruit.Checkout
                 else
                 {
                     Response.Redirect("CheckoutError.aspx?" + retMsg);
-                }
+                }                               
             }
         }
 
