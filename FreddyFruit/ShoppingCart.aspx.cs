@@ -94,13 +94,13 @@ namespace FreddyFruit
                     }
                 }
 
-                lblTotal.Text = String.Format("{0:c}", usersShoppingCart.GetTotal());
+                lblTotal.Text = String.Format(new System.Globalization.CultureInfo("en-ZA"), "{0:C}", usersShoppingCart.GetTotal());
 
                 //TODO: Timing issue may be present with these two lines
                 //TODO: The data seems to correct itself on the 2nd button click.
 
-                lblSavings.Text = String.Format("{0:c}", usersShoppingCart.GetSavings());
-                lblTotalWithDiscount.Text = String.Format("{0:c}", usersShoppingCart.GetTotalWithDiscount());
+                lblSavings.Text = String.Format(new System.Globalization.CultureInfo("en-ZA"), "{0:c}", usersShoppingCart.GetSavings());
+                lblTotalWithDiscount.Text = String.Format(new System.Globalization.CultureInfo("en-ZA"), "{0:c}", usersShoppingCart.GetTotalWithDiscount());
 
                 return usersShoppingCart.GetCartItems();
             }

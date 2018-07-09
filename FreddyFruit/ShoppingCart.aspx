@@ -15,7 +15,7 @@
         </asp:TemplateField>    
         <asp:TemplateField HeaderText="Item Total">            
                 <ItemTemplate>
-                    <%#: String.Format("{0:c}", ((Convert.ToDouble(Item.Quantity)) *  Convert.ToDouble(Item.Product.UnitPrice)))%>
+                    <%#: String.Format(new System.Globalization.CultureInfo("en-ZA"),"{0:C}", ((Convert.ToDouble(Item.Quantity)) *  Convert.ToDouble(Item.Product.UnitPrice)))%>
                 </ItemTemplate>        
         </asp:TemplateField> 
         <asp:TemplateField HeaderText="Remove Item">            
