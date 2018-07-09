@@ -42,9 +42,18 @@ input[type="select"] {
     background-image: linear-gradient(#11e023, #25a22f 60%, #057d18);
     background-repeat: no-repeat;
     filter: none;
-    border-bottom: 1px solid #275816;
+    border-bottom: 1px solid #3e772b;
 }
 
+.navbar-inverse .navbar-brand {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    background-color: #25a22f;
+}
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: Lato, "Open Sans", Helvetica, Arial, sans-serif;
@@ -60,7 +69,7 @@ a {
 }
 
 a:hover {
-    color: #25a22f;
+    color: #057d18;
     text-decoration: none;
     font-family: Lato, "Open Sans", Helvetica, Arial, sans-serif;
 }
