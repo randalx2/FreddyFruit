@@ -266,6 +266,7 @@
     <Content Include="Images\logo.png" />
     <Content Include="ProductDetails.aspx" />
     <Content Include="ProductList.aspx" />
+    <Content Include="README-Instructions.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
