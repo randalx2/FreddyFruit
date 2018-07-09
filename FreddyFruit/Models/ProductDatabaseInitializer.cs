@@ -68,9 +68,9 @@ namespace FreddyFruit.Models
                 {
                     ProductID = 3,
                     ProductName = "Coconuts",
-                    Description = "Is it a fruit or vegetable? Our web developer wasn't sure. " 
+                    Description = "Is it a fruit or vegetable? " 
                                   + "It ain't easy getting guys to climb up tall trees for these without insurance." 
-                                  + " Besides..we know you really need this because your mom needs something to throw on the ground til it breaks!",
+                                  + " Besides..we know you really need this because your mom needs something to throw on the ground!",
                     Special = "Get 1 free for every 2 coconuts purchased.",
                     ImagePath="Coconuts.jpg",
                     UnitPrice = 4.00,

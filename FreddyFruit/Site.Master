@@ -9,6 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - Freddy Fruits</title>
 
+    <!--Custom Fonts Bundle-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet"> 
+
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
