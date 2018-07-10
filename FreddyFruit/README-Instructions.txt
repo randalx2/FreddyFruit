@@ -25,6 +25,9 @@ User Guide:
        "DropCreateDatabaseIfModelChanges<ProductContext>" instead. See the comments in this file.
         This will also allow the app to run quicker in future.
 
+   3.2 Please note that sometimes Visual Studio has an issue with resetting the database if you choose to leave
+       the "ProductDatabaseInitializer.cs" class as is. In this instance merely restart Visual Studio.
+
 4. Make sure you have installed the frameworks necessary to run the app in the Visual Studio Environment.
 
 5. It is also recommended that you have both Firefox and Chrome installed.
