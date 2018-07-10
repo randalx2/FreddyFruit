@@ -74,15 +74,17 @@ a:hover {
     font-family: Lato, "Open Sans", Helvetica, Arial, sans-serif;
 }
 
-td {
-    padding: 10px;
-}
-
 /*alignment of quantity text boxes*/
 input[type="text"], input[type="select"] {
     max-width: 280px;
     text-align: center;
 }
+
+td {
+    padding: 10px;
+}
+
+
 
 
 
