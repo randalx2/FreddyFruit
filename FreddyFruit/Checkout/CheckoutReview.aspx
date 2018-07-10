@@ -32,7 +32,7 @@
                 
                 <h3>Order Total:</h3>
                 <br />
-                <asp:Label ID="Total" runat="server" Text='<%#: Eval("Total", "{0:C}") %>'></asp:Label>
+                <asp:Label ID="Total" runat="server" Text='<%# String.Format( new System.Globalization.CultureInfo("en-ZA"), "{0:C}", Eval("Total"))%>'></asp:Label>
             </ItemTemplate>
             <ItemStyle HorizontalAlign="Left" />
         </asp:TemplateField>
