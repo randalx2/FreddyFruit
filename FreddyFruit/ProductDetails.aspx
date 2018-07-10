@@ -16,13 +16,17 @@ CodeBehind="ProductDetails.aspx.cs" Inherits="FreddyFruit.ProductDetails" %>
                     <td style="vertical-align: top; text-align:left;">
                         <b>Description:</b><br /><%#:Item.Description %>
                         <br />
+                        <br />
                         <span><b>Price:</b>&nbsp;<%#: String.Format(new System.Globalization.CultureInfo("en-ZA"),"{0:c}", Item.UnitPrice) %></span>
                         <br/>
+                        <br />
                         <span>
                             <b>Special: </b><%#:String.Format("{0:c}", Item.Special)%>
                         </span>
                         <br />
+                        <br />
                         <span><b>Product Number:</b>&nbsp;<%#:Item.ProductID %></span>
+                        <br />
                         <br />
                         <a href="/AddToCart.aspx?productID=<%#:Item.ProductID %>">               
                             <span class="ProductListItem">
