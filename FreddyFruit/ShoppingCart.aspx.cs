@@ -41,12 +41,25 @@ namespace FreddyFruit
         }
 
         /// <summary>
-        /// Returns all the items in the cart
+        /// Returns all the items in the cart. Used to populate the GridView rows
         /// </summary>
         /// <returns></returns>
         public List<CartItem> GetShoppingCartItems()
         {
             ShoppingCartActions actions = new ShoppingCartActions();
+
+            //Validate the cart items
+            foreach(var item in actions.GetCartItems())
+            {
+                if(item.Product.ProductName.Equals("Bananas", StringComparison.Ordinal) && item.Quantity > 10)
+                {
+                    item.Quantity = 10;
+
+                    lblWarning.ForeColor = Color.Red;
+                    lblWarning.Text = "Warning! You can only order a maximum of 10 Bananas. Net Total Updated.";
+                }
+            }
+
             return actions.GetCartItems();
         }
 
@@ -83,22 +96,7 @@ namespace FreddyFruit
                 usersShoppingCart.UpdateShoppingCartDatabase(cartId, cartUpdates);
                 CartList.DataBind();
 
-                //Check for more than 10 bananas
-                foreach (var shoppingCartItem in GetShoppingCartItems())
-                {
-                    if (shoppingCartItem.Product.ProductName.Equals("Bananas", StringComparison.Ordinal) &&
-                        shoppingCartItem.Quantity > 10)
-                    {
-                        lblWarning.ForeColor = Color.Red;
-                        lblWarning.Text = "Warning! You can only order a maximum of 10 Bananas. Net Total Updated.";                       
-                    }
-                }
-
                 lblTotal.Text = String.Format(new System.Globalization.CultureInfo("en-ZA"), "{0:C}", usersShoppingCart.GetTotal());
-
-                //TODO: Timing issue may be present with these two lines
-                //TODO: The data seems to correct itself on the 2nd button click.
-
                 lblSavings.Text = String.Format(new System.Globalization.CultureInfo("en-ZA"), "{0:c}", usersShoppingCart.GetSavings());
                 lblTotalWithDiscount.Text = String.Format(new System.Globalization.CultureInfo("en-ZA"), "{0:c}", usersShoppingCart.GetTotalWithDiscount());
 
@@ -106,6 +104,11 @@ namespace FreddyFruit
             }
         }
 
+        /// <summary>
+        /// Gets the values contained in the cells of the grid view
+        /// </summary>
+        /// <param name="row"></param>
+        /// <returns></returns>
         public static IOrderedDictionary GetValues(GridViewRow row)
         {
             IOrderedDictionary values = new OrderedDictionary();
@@ -120,11 +123,21 @@ namespace FreddyFruit
             return values;
         }
 
+        /// <summary>
+        /// Event handler for the Update Cart button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void UpdateBtn_Click(object sender, EventArgs e)
         {
             UpdateCartItems();
         }
 
+        /// <summary>
+        /// Event handler for the checkout button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void CheckoutBtn_Click(object sender, ImageClickEventArgs e)
         {
             using (ShoppingCartActions usersShoppingCart = new ShoppingCartActions())

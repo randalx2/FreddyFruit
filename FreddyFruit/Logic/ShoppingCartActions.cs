@@ -228,7 +228,7 @@ namespace FreddyFruit.Logic
         }
 
         /// <summary>
-        /// Updates the cart on the db side
+        /// Updates the cart on the db side. Handles validation if the user enters less than 1 quantity of a product.
         /// </summary>
         /// <param name="cartId"></param>
         /// <param name="CartItemUpdates"></param>
